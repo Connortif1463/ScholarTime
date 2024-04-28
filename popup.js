@@ -1,31 +1,28 @@
 // popup.js
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Get reference to buttons
+    // making references to buttons
     var continueBtn = document.getElementById('continueBtn');
     var cancelBtn = document.getElementById('cancelBtn');
     var websiteLink = document.getElementById('websiteLink');
 
-    // Ask background script for the stored URL
+    // ping background.js for the stored URL in case user continues
     chrome.runtime.sendMessage({action: "getUrl"}, function(response) {
-        // Display the stored URL in the popup
+        // setting reference for stored url
         websiteLink.textContent = response.url;
         websiteLink.href = response.url;
     });
 
-    // Adds event listener for continue button
+    // Continue button listener
     continueBtn.addEventListener('click', function() {
-        // Handle continue action here
         console.log("Continue button clicked");
-        // For example, you can redirect to the desired URL
-        window.location.href = "https://example.com";
+        // redirect to user-intended website
+        window.location.href = websiteLink.href;
     });
 
-    // Adds event listener for cancel button
+    // Cancel button listener
     cancelBtn.addEventListener('click', function() {
-        // Handle cancel action here
         console.log("Cancel button clicked");
-        // Go back to previous window
+        // go back to previous window
         window.history.back();
     });
 });
