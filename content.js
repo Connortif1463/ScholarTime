@@ -1,4 +1,7 @@
 // content.js
-console.log("Content script loaded.");
 
-// Add your content script logic here
+// Get the URL of the current page
+var currentUrl = window.location.href;
+
+// Send message to background script with the URL
+chrome.runtime.sendMessage({action: "storeUrl", url: currentUrl});
