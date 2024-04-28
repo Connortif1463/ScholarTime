@@ -24,3 +24,14 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
         sendResponse({url: storedUrl});
     }
 });
+
+// chrome action listener
+chrome.action.onClicked.addListener((tab) => {
+    chrome.windows.create({
+      url: "toggle.html",
+      type: "popup",
+      width: 200,
+      height: 100
+    });
+  });
+  
