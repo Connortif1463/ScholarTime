@@ -35,5 +35,11 @@
       ],
       "js": ["content.js"]
     }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["forbidden.js"],
+      "matches": ["forbidden.html"]
+    }
   ]
 }
