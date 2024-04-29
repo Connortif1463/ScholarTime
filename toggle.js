@@ -1,37 +1,37 @@
-// toggle.js
+// popup.js
 document.addEventListener('DOMContentLoaded', function() {
     // Get reference to buttons
-    var enableBtn = document.getElementById('enableBtn');
-    var settingsBtn = document.getElementById('settingsBtn');
+    var continueBtn = document.getElementById('continueBtn');
+    var cancelBtn = document.getElementById('cancelBtn');
+    var messageDiv = document.getElementById('message');
 
-    // Add event listener for enable button
-    enableBtn.addEventListener('click', function() {
-        // Open settings window
-        chrome.windows.create({
-            url: "settings.html",
-            type: "popup",
-            width: 400,
-            height: 300
+    // Continue button listener
+    continueBtn.addEventListener('click', function() {
+        console.log("Continue button clicked");
+        // Redirect to user-intended website
+        chrome.runtime.sendMessage({ action: "getUrl" }, function(response) {
+            if (response && response.url) {
+                window.location.href = response.url;
+            } else {
+                // If no URL is stored or response is undefined, show a message
+                showMessage("No website to continue to.");
+            }
         });
     });
 
-    // Add event listener for settings button
-    settingsBtn.addEventListener('click', function() {
-        // Open settings window
-        chrome.windows.create({
-            url: "settings.html",
-            type: "popup",
-            width: 400,
-            height: 300
-        }, function(window) {
-            // Pause functionality until settings window is closed
-            chrome.windows.onRemoved.addListener(function(windowId) {
-                if (windowId === window.id) {
-                    // Resume functionality
-                    console.log("Settings window closed. Resuming functionality...");
-                    // Now you can enable the functionality here
-                }
-            });
-        });
+    // Cancel button listener
+    cancelBtn.addEventListener('click', function() {
+        console.log("Cancel button clicked");
+        // Navigate to Google
+        window.location.href = "https://www.google.com/";
     });
+
+    // Set professional message
+    function showMessage(msg) {
+        if (messageDiv) {
+            messageDiv.textContent = msg;
+        }
+    }
+
+    showMessage("You can hit cancel to return to Google.");
 });

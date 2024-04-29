@@ -10,17 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log("Continue button clicked");
         // Redirect to user-intended website
         chrome.runtime.sendMessage({ action: "getUrl" }, function(response) {
-            if (chrome.runtime.lastError) {
-                // Handle error gracefully
-                showMessage("Error: Unable to communicate with the extension. Please try again later.");
-                console.error(chrome.runtime.lastError.message);
+            if (response && response.url) {
+                window.location.href = response.url;
             } else {
-                if (response && response.url) {
-                    window.location.href = response.url;
-                } else {
-                    // If no URL is stored or response is undefined, show a message
-                    showMessage("No website to continue to.");
-                }
+                // If no URL is stored or response is undefined, show a message
+                showMessage("No website to continue to.");
             }
         });
     });
