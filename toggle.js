@@ -5,13 +5,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Add event listener for toggle button
     toggleBtn.addEventListener('click', function() {
-        // Send message to background script to toggle functionality
-        chrome.runtime.sendMessage({action: "toggleFunctionality"}, function(response) {
-            if (response.enabled) {
-                toggleBtn.textContent = "Disable";
-            } else {
-                toggleBtn.textContent = "Enable";
-            }
+        // Open settings window
+        chrome.windows.create({
+            url: "settings.html",
+            type: "popup",
+            width: 400,
+            height: 300
         });
     });
 });
