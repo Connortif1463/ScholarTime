@@ -21,6 +21,13 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     if (message.action == "storeUrl") {
         // Store the URL received in the message
         storedUrl = message.url;
+        // Open popup.html when a forbidden website is detected
+        chrome.windows.create({
+            url: "popup.html",
+            type: "popup",
+            width: 300,
+            height: 200
+        });
     }
 });
 
