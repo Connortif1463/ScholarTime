@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Get reference to buttons
     var continueBtn = document.getElementById('continueBtn');
     var cancelBtn = document.getElementById('cancelBtn');
-    var websiteLink = document.getElementById('websiteLink');
 
     // Continue button listener
     continueBtn.addEventListener('click', function() {
