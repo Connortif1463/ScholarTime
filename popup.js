@@ -10,7 +10,12 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log("Continue button clicked");
         // Redirect to user-intended website
         chrome.runtime.sendMessage({ action: "getUrl" }, function(response) {
-            window.location.href = response.url;
+            if (response.url) {
+                window.location.href = response.url;
+            } else {
+                // If no URL is stored, show a message
+                messageDiv.textContent = "No website to continue to.";
+            }
         });
     });
 
@@ -22,5 +27,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Set professional message
-    messageDiv.textContent = "You can go back to your last page or hit cancel and redirect to Google.";
+    messageDiv.textContent = "You can hit cancel to return to Google.";
 });
