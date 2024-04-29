@@ -4,15 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ScholarTime Popup</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <h1>Hello there!</h1>
     <h3>It seems like you've tried to open a service that isn't permitted.</h3>
-    <!-- <h3>Would you like to go there anyway?</h3> -->
 
-    <!-- Buttons for continuing or canceling -->
-    <!-- <button id="continueBtn">Continue</button> -->
+    <!-- Button for canceling -->
     <button id="cancelBtn">Cancel</button>
+
+    <div id="message"></div>
 
     <script src="popup.js"></script>
 </body>

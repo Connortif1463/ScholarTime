@@ -6,22 +6,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Add event listener for enable button
     enableBtn.addEventListener('click', function() {
-        console.log("Enable button clicked");
-        // Send message to background script to toggle functionality
-        chrome.runtime.sendMessage({ action: "toggleFunctionality" }, function(response) {
-            if (response && response.enabled) {
-                enableBtn.textContent = "Disable";
-            } else {
-                enableBtn.textContent = "Enable";
-            }
+        // Open settings window
+        chrome.windows.create({
+            url: "settings.html",
+            type: "popup",
+            width: 400,
+            height: 300
         });
     });
 
     // Add event listener for settings button
     settingsBtn.addEventListener('click', function() {
-        console.log("Settings button clicked");
-        // Open extension options page
-        chrome.runtime.openOptionsPage();
+        // Open settings window
+        chrome.windows.create({
+            url: "settings.html",
+            type: "popup",
+            width: 400,
+            height: 300
+        }, function(window) {
+            // Pause functionality until settings window is closed
+            chrome.windows.onRemoved.addListener(function(windowId) {
+                if (windowId === window.id) {
+                    // Resume functionality
+                    console.log("Settings window closed. Resuming functionality...");
+                    // Now you can enable the functionality here
+                }
+            });
+        });
     });
 });
-
