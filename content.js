@@ -8,10 +8,11 @@ function isForbiddenWebsite(url) {
         "https://www.whatsapp.com/",
         "https://www.skype.com/",
         "https://www.netflix.com/",
-        "https://www.x.com/",
+        "https://www.twitter.com/",
         "https://www.amazon.com/",
         "https://instagram.com/",
-        "https://snapchat.com/"
+        "https://snapchat.com/",
+        "https://www.x.com/"
     ];
     return forbiddenWebsites.some(forbiddenUrl => url.startsWith(forbiddenUrl));
 }
@@ -23,3 +24,4 @@ window.addEventListener('load', function() {
         chrome.runtime.sendMessage({action: "storeUrl", url: currentUrl});
     }
 });
+
