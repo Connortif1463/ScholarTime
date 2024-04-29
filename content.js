@@ -1,7 +1,25 @@
 // content.js
 
-// get the URL of the current page
-var currentUrl = window.location.href;
+// Check if the current URL matches any of the forbidden websites
+function isForbiddenWebsite(url) {
+    const forbiddenWebsites = [
+        "https://www.youtube.com/",
+        "https://www.facebook.com/",
+        "https://www.whatsapp.com/",
+        "https://www.skype.com/",
+        "https://www.netflix.com/",
+        "https://www.x.com/",
+        "https://www.amazon.com/",
+        "https://instagram.com/",
+        "https://snapchat.com/"
+    ];
+    return forbiddenWebsites.some(forbiddenUrl => url.startsWith(forbiddenUrl));
+}
 
-// send message to background script with the URL
-chrome.runtime.sendMessage({action: "storeUrl", url: currentUrl});
+// When the page is loaded, check if it's a forbidden website and send the URL to background script
+window.addEventListener('load', function() {
+    const currentUrl = window.location.href;
+    if (isForbiddenWebsite(currentUrl)) {
+        chrome.runtime.sendMessage({action: "storeUrl", url: currentUrl});
+    }
+});
