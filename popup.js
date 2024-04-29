@@ -30,11 +30,13 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!isForbiddenWebsite(previousUrl)) {
                 // If not, go back to that page
                 window.location.href = previousUrl;
-                break;
+                return;
             }
             // If it's on the blacklist, go back further
             window.history.back();
         }
+        // If there's no more history, navigate to Google
+        window.location.href = "https://www.google.com/";
     }
 
     // Function to check if a URL is on the blacklist
