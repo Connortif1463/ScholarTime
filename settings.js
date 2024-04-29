@@ -2,6 +2,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     var settingsForm = document.getElementById('settingsForm');
 
+    // Load settings from Chrome storage and update checkboxes
+    loadSettings();
+
     // Listen for form submission
     settingsForm.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -9,15 +12,25 @@ document.addEventListener('DOMContentLoaded', function() {
         saveSettings();
     });
 
+    // Function to load settings from Chrome storage and update checkboxes
+    function loadSettings() {
+        chrome.storage.local.get(["youtube", "facebook"], function(result) {
+            var youtubeCheckbox = document.getElementById('youtubeCheckbox');
+            var facebookCheckbox = document.getElementById('facebookCheckbox');
+            // Update checkboxes based on loaded settings
+            youtubeCheckbox.checked = result.youtube !== "whitelist";
+            facebookCheckbox.checked = result.facebook !== "whitelist";
+            // Add more checkboxes for other websites as needed
+        });
+    }
+
     // Function to save settings
     function saveSettings() {
         var youtubeCheckbox = document.getElementById('youtubeCheckbox');
-        var youtubeSelect = document.getElementById('youtubeSelect');
         var facebookCheckbox = document.getElementById('facebookCheckbox');
-        var facebookSelect = document.getElementById('facebookSelect');
-        // Get the values of checkboxes and selects
-        var youtubeValue = youtubeCheckbox.checked ? youtubeSelect.value : "";
-        var facebookValue = facebookCheckbox.checked ? facebookSelect.value : "";
+        // Get the values of checkboxes
+        var youtubeValue = youtubeCheckbox.checked ? "blacklist" : "whitelist";
+        var facebookValue = facebookCheckbox.checked ? "blacklist" : "whitelist";
         // Save settings in Chrome storage
         chrome.storage.local.set({
             "youtube": youtubeValue,
