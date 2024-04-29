@@ -1,14 +1,16 @@
 // popup.js
 document.addEventListener('DOMContentLoaded', function() {
-    // making references to buttons
+    // Making references to buttons
     var continueBtn = document.getElementById('continueBtn');
     var cancelBtn = document.getElementById('cancelBtn');
     var websiteLink = document.getElementById('websiteLink');
+    var toggleBtn = document.getElementById('toggleBtn'); // Reference to toggle button
 
-    // add event listener for toggle button
+    // Add event listener for toggle button
     toggleBtn.addEventListener('click', function() {
-        // send message to background script to toggle functionality
+        // Send message to background script to toggle functionality
         chrome.runtime.sendMessage({action: "toggleFunctionality"}, function(response) {
+            // Update toggle button text based on response
             if (response.enabled) {
                 toggleBtn.textContent = "Disable";
             } else {
@@ -17,9 +19,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // ping background.js for the stored URL in case user continues
+    // Ping background.js for the stored URL in case user continues
     chrome.runtime.sendMessage({action: "getUrl"}, function(response) {
-        // setting reference for stored url
+        // Set reference for stored URL
         websiteLink.textContent = response.url;
         websiteLink.href = response.url;
     });
@@ -27,14 +29,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Continue button listener
     continueBtn.addEventListener('click', function() {
         console.log("Continue button clicked");
-        // redirect to user-intended website
+        // Redirect to user-intended website
         window.location.href = websiteLink.href;
     });
 
     // Cancel button listener
     cancelBtn.addEventListener('click', function() {
         console.log("Cancel button clicked");
-        // go back to previous window
+        // Go back to previous window
         window.history.back();
     });
 });

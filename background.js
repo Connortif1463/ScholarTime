@@ -1,37 +1,44 @@
 // background.js
 
+// Variable to store whether the extension functionality is enabled or disabled
 var isEnabled = true;
+
+// Variable to store the URL of the forbidden website
 var storedUrl = "";
 
-// listener for toggle of app functionality
+// Listener for toggle of app functionality
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     if (message.action == "toggleFunctionality") {
+        // Toggle the isEnabled variable
         isEnabled = !isEnabled;
+        // Send response back to the sender
         sendResponse({ enabled: isEnabled });
     }
 });
 
-// listener for forbidden website link
+// Listener for storing the URL of the forbidden website
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     if (message.action == "storeUrl") {
+        // Store the URL received in the message
         storedUrl = message.url;
     }
 });
 
-// when requested, give stored url to popup.js
+// When requested, send the stored URL to popup.js
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     if (message.action == "getUrl") {
+        // Send the stored URL as response
         sendResponse({url: storedUrl});
     }
 });
 
-// chrome action listener
+// Chrome action listener
 chrome.action.onClicked.addListener((tab) => {
+    // Open the toggle.html popup window when the extension icon is clicked
     chrome.windows.create({
       url: "toggle.html",
       type: "popup",
       width: 200,
       height: 100
     });
-  });
-  
+});
