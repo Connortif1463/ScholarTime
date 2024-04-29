@@ -1,23 +1,22 @@
-// popup.js
 document.addEventListener('DOMContentLoaded', function() {
-    // Get reference to buttons
-    var continueBtn = document.getElementById('continueBtn');
+    // Get reference to buttons and message div
+    // var continueBtn = document.getElementById('continueBtn');
     var cancelBtn = document.getElementById('cancelBtn');
     var messageDiv = document.getElementById('message');
 
     // Continue button listener
-    continueBtn.addEventListener('click', function() {
-        console.log("Continue button clicked");
-        // Redirect to user-intended website
-        chrome.runtime.sendMessage({ action: "getUrl" }, function(response) {
-            if (response && response.url) {
-                window.location.href = response.url;
-            } else {
-                // If no URL is stored or response is undefined, show a message
-                showMessage("No website to continue to.");
-            }
-        });
-    });
+    // continueBtn.addEventListener('click', function() {
+    //     console.log("Continue button clicked");
+    //     // Redirect to user-intended website
+    //     chrome.runtime.sendMessage({ action: "getUrl" }, function(response) {
+    //         if (response && response.url) {
+    //             window.location.href = response.url;
+    //         } else {
+    //             // If no URL is stored or response is undefined, show an error message
+    //             showMessage("Error: No website to continue to.");
+    //         }
+    //     });
+    // });
 
     // Cancel button listener
     cancelBtn.addEventListener('click', function() {
@@ -26,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = "https://www.google.com/";
     });
 
-    // Set professional message
+    // Set message
     function showMessage(msg) {
         if (messageDiv) {
             messageDiv.textContent = msg;
