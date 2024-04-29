@@ -1,22 +1,8 @@
+// popup.js
 document.addEventListener('DOMContentLoaded', function() {
-    // Get reference to buttons and message div
-    // var continueBtn = document.getElementById('continueBtn');
+    // Get reference to cancel button and message div
     var cancelBtn = document.getElementById('cancelBtn');
     var messageDiv = document.getElementById('message');
-
-    // Continue button listener
-    // continueBtn.addEventListener('click', function() {
-    //     console.log("Continue button clicked");
-    //     // Redirect to user-intended website
-    //     chrome.runtime.sendMessage({ action: "getUrl" }, function(response) {
-    //         if (response && response.url) {
-    //             window.location.href = response.url;
-    //         } else {
-    //             // If no URL is stored or response is undefined, show an error message
-    //             showMessage("Error: No website to continue to.");
-    //         }
-    //     });
-    // });
 
     // Cancel button listener
     cancelBtn.addEventListener('click', function() {
